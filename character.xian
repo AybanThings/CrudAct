@@ -1,0 +1,54 @@
+{{> head }}
+<body>
+  <p><a href="/">Home</a></p>
+
+  {{#if success_msg}}<p>{{success_msg}}</p>{{/if}}
+  {{#if error_msg}}<p>{{error_msg}}</p>{{/if}}
+
+  <form method="POST" action="/characters">
+    <h2>Add Character</h2>
+    <p>
+      <input name="Name" placeholder="Name" required />
+      <input name="Species" placeholder="Species" required />
+      <input name="Occupation" placeholder="Occupation" required />
+      <input name="Residence" placeholder="Residence" required />
+      <input name="Catchphrase" placeholder="Catchphrase" />
+    </p>
+    <button type="submit">Add</button>
+  </form>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Species</th>
+        <th>Occupation</th>
+        <th>Residence</th>
+        <th>Catchphrase</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each characters}}
+        <tr>
+          <td>{{id}}</td>
+          <td>{{Name}}</td>
+          <td>{{Species}}</td>
+          <td>{{Occupation}}</td>
+          <td>{{Residence}}</td>
+          <td>{{Catchphrase}}</td>
+          <td>
+            <a href="/characters/{{id}}">View</a>
+            <a href="/characters/{{id}}/edit">Edit</a>
+            <form method="POST" action="/characters/{{id}}/delete" onsubmit="return confirm('Delete this character?')">
+              <button type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {{else}}
+        <tr><td colspan="7">No characters yet. Add one above.</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{> footer }}

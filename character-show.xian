@@ -1,0 +1,19 @@
+{{> head }}
+<body>
+  <h1>{{character.Name}}</h1>
+  <p><a href="/characters">Back to list</a></p>
+
+  <p>ID: {{character.id}}</p>
+  <p>Name: {{character.Name}}</p>
+  <p>Species: {{character.Species}}</p>
+  <p>Occupation: {{character.Occupation}}</p>
+  <p>Residence: {{character.Residence}}</p>
+  <p>Catchphrase: {{character.Catchphrase}}</p>
+
+  <p>
+    <a href="/characters/{{character.id}}/edit">Edit</a>
+  </p>
+  <form method="POST" action="/characters/{{character.id}}/delete" onsubmit="return confirm('Delete this character?')">
+    <button type="submit">Delete</button>
+  </form>
+{{> footer }}

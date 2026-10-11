@@ -1,0 +1,11 @@
+{{> head }}
+<body>
+  <h1>CrudAlcantara</h1>
+  <p>SpongeBob SquarePants CRUD</p>
+
+  <p>
+    <button type="button" onclick="location.href='/act1'">Act 1</button>
+    <button type="button" onclick="location.href='/act2'">Act 2</button>
+    <button type="button" onclick="location.href='/characters'">Act 3</button>
+  </p>
+{{> footer }}

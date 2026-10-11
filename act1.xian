@@ -1,0 +1,52 @@
+{{> head }}
+<body>
+  <h1>Act 1 — insert, all, one</h1>
+  <p><a href="/">Home</a></p>
+
+  <form id="insertForm">
+    <h2>Insert</h2>
+    <p>
+      <input name="Name" placeholder="Name" required />
+      <input name="Species" placeholder="Species" required />
+      <input name="Occupation" placeholder="Occupation" required />
+      <input name="Residence" placeholder="Residence" required />
+      <input name="Catchphrase" placeholder="Catchphrase" />
+    </p>
+    <button type="submit">Insert Character</button>
+  </form>
+
+  <h2>Get</h2>
+  <p>
+    <button id="allBtn" type="button">Get All</button>
+    <input id="oneId" type="number" min="1" placeholder="Character id" />
+    <button id="oneBtn" type="button">Get One</button>
+  </p>
+
+  <pre id="output">Response will appear here…</pre>
+
+  <script>
+    const out = document.getElementById("output");
+    const show = (data) => (out.textContent = JSON.stringify(data, null, 2));
+
+    document.getElementById("insertForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const body = Object.fromEntries(new FormData(e.target));
+      const res = await fetch("/api/act1/characters", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      show(await res.json());
+      e.target.reset();
+    });
+
+    document.getElementById("allBtn").addEventListener("click", async () => {
+      show(await (await fetch("/api/act1/characters")).json());
+    });
+
+    document.getElementById("oneBtn").addEventListener("click", async () => {
+      const id = document.getElementById("oneId").value;
+      show(await (await fetch(`/api/act1/characters/${id}`)).json());
+    });
+  </script>
+{{> footer }}

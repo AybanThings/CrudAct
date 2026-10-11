@@ -1,0 +1,52 @@
+{{> head }}
+<body>
+  <h1>Act 2 — update, delete</h1>
+  <p><a href="/">Home</a></p>
+
+  <form id="updateForm">
+    <h2>Update</h2>
+    <p><input name="id" type="number" min="1" placeholder="Character id" required /></p>
+    <p>
+      <input name="Name" placeholder="Name" required />
+      <input name="Species" placeholder="Species" required />
+      <input name="Occupation" placeholder="Occupation" required />
+      <input name="Residence" placeholder="Residence" required />
+      <input name="Catchphrase" placeholder="Catchphrase" />
+    </p>
+    <button type="submit">Update Character</button>
+  </form>
+
+  <form id="deleteForm">
+    <h2>Delete</h2>
+    <p><input name="id" type="number" min="1" placeholder="Character id" required /></p>
+    <button type="submit">Delete Character</button>
+  </form>
+
+  <pre id="output">Response will appear here…</pre>
+
+  <script>
+    const out = document.getElementById("output");
+    const show = (data) => (out.textContent = JSON.stringify(data, null, 2));
+
+    document.getElementById("updateForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const body = Object.fromEntries(new FormData(e.target));
+      const id = body.id;
+      delete body.id;
+      const res = await fetch(`/api/act2/characters/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      show(await res.json());
+    });
+
+    document.getElementById("deleteForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id = new FormData(e.target).get("id");
+      if (!confirm(`Delete character #${id}?`)) return;
+      show(await (await fetch(`/api/act2/characters/${id}`, { method: "DELETE" })).json());
+      e.target.reset();
+    });
+  </script>
+{{> footer }}

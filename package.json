@@ -1,0 +1,26 @@
+{
+  "name": "CrudAlcantara",
+  "version": "1.0.0",
+  "description": "XianFire Framework project — Acts 1-3 CRUD demonstration",
+  "main": "index.js",
+  "type": "module",
+  "bin": {
+    "xian": "./bin/xian.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "xian": "nodemon index.js",
+    "migrate": "node migrate.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "connect-flash": "^0.1.1",
+    "hbs": "^4.2.0",
+    "mysql2": "^3.9.2",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
